@@ -8,14 +8,19 @@ import { useDispatch } from 'react-redux';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 const AccountFilter = ({ COUNT_PER_PAGE }) => {
+  const queryParams = new URLSearchParams(window.location.search);
+
+  // [TODO] 새로고침시 기존 상태 유지시키기
+  // url의 주소값을 읽어서 state의 기본값으로 넣어줌. 없으면 ""으로
   const [putData, setPutData] = useState({
-    _page: 1,
+    _page: 1, // 필터된 데이터를 다시 1페이지부터 보여줄 꺼니까 초기값 1로 고정!
     _limit: COUNT_PER_PAGE,
-    broker_id: '',
-    status: '',
-    is_active: '',
-    q: '',
+    broker_id: queryParams.get('broker_id') ?? '',
+    status: queryParams.get('status') ?? '',
+    is_active: queryParams.get('is_active') ?? '',
+    q: queryParams.get('q') ?? '',
   });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

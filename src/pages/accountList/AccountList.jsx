@@ -6,17 +6,21 @@ import { BROKERS, ACCOUNT_STATUS, accountFilterDataForm } from '../../const';
 import AccountFilter from './AccountFilter';
 import 'antd/dist/antd.css';
 import { Table, Pagination } from 'antd';
+import { setNowRoute } from '../../store/nowRouteSlice';
+import { accountMasking } from '../../utils/masking';
 
 const AccountList = () => {
+  const queryParams = new URLSearchParams(window.location.search);
+
   const { accounts, totalCount } = useSelector(state => state.accounts);
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(queryParams.get('_page') ?? 1);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
     let pageNationData = {};
+
     Object.entries(accountFilterDataForm).forEach(data => {
       const key = data[0];
       const value = queryParams.get(key);
@@ -37,6 +41,10 @@ const AccountList = () => {
 
     dispatch(getAccountsRequest());
   }, [current, dispatch, navigate]);
+
+  useEffect(() => {
+    dispatch(setNowRoute('계좌 리스트'));
+  }, []);
 
   const onPageChange = pageNum => {
     setCurrent(pageNum);
@@ -79,6 +87,8 @@ const makeTableData = DATA => {
       .toString()
       .slice(0, 5);
 
+    const formedAccountNum = accountMasking(DATA[i].number, [DATA[i].broker_id]);
+
     tableData.push({
       key: DATA[i].uuid,
       id: DATA[i].id,
@@ -86,7 +96,7 @@ const makeTableData = DATA => {
       userId: DATA[i].userId,
       userName: `${DATA[i].user.name}`,
       acountName: DATA[i].name,
-      accountNum: DATA[i].number,
+      accountNum: formedAccountNum,
       assets: Math.floor(+DATA[i].assets).toLocaleString(),
       payments: Math.floor(+DATA[i].payments).toLocaleString(),
       createdAt: DATA[i].created_at,
@@ -117,7 +127,7 @@ const columns = [
   {
     title: '계좌번호',
     dataIndex: 'accountNum',
-    render: (text, record) => <a href={`/accounts/${record.key}`}>{text}</a>, // uuid로 계좌디테일 페이지 이동
+    render: (text, record) => <a href={`/accounts/${record.key}`}>{text}</a>,
   },
   {
     title: '평가금액',

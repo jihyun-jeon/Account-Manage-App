@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import accountReducer from './accountSlice';
 import userNameReducer from './userNameSlice';
 import userDetailReducer from './usersSlice';
+import nowRouteReducer from './nowRouteSlice';
 
 const persistConfig = {
   key: 'root',
@@ -15,7 +16,12 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, userNameReducer);
 
 export const store = configureStore({
-  reducer: { userName: persistedReducer, accounts: accountReducer, users: userDetailReducer },
+  reducer: {
+    userName: persistedReducer,
+    accounts: accountReducer,
+    users: userDetailReducer,
+    nowRoute: nowRouteReducer,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -5,6 +5,7 @@ import { accountsDataForm } from '../const';
 export const getAccountsRequest = createAsyncThunk('GET_ACCOUNTS', async (_, thunkApi) => {
   const queryParams = new URLSearchParams(window.location.search);
   let pageNationData = '';
+
   Object.entries(accountsDataForm).forEach(data => {
     const key = data[0];
     const value = queryParams.get(key);

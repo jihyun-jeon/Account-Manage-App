@@ -28,7 +28,7 @@ instance.interceptors.response.use(
   },
   error => {
     if (typeof error.response.data === 'string') {
-      alert(error.response.data);
+      return error.response.data;
     }
     return Promise.reject(error);
   }
@@ -36,6 +36,7 @@ instance.interceptors.response.use(
 
 // [TODO] < CRUD - 파일분리 예정 >
 export const loginRequest = userData => {
+  // 3
   return instance.post('/login', userData);
 };
 

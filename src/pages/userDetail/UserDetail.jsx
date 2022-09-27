@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { oneUsersRequest } from '../../api/axios';
 import { BROKERS, ACCOUNT_STATUS } from '../../const';
+import { setNowRoute } from '../../store/nowRouteSlice';
 
 const UserDetail = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
     oneUsersRequest(id).then(res => setUserData(res.data));
+    dispatch(setNowRoute('사용자 상세'));
   }, []);
 
   /*

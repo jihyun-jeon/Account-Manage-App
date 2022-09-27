@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
-import { Breadcrumb, Layout } from 'antd';
+import { Layout } from 'antd';
 import { SIDER } from '../const';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const HeaderLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
 
-  const userName = useSelector(state => state.userName.userName);
-
-  const secondRoute = search.split('&')[0].slice(-1); // _page=1&_limit=10
-  const firstRoute = pathname.slice(1).toUpperCase(); // /accounts ?
+  const { userName } = useSelector(state => state.userName);
+  const { routeName } = useSelector(state => state.nowRoute);
 
   return (
     <Layout className="min-h-screen">
@@ -65,9 +63,7 @@ const HeaderLayout = ({ children }) => {
       <Layout className="site-layout">
         <Header className="header h-1/8 bg-sky-600  flex justify-between pr-10">
           <p className="my-5 font-bold text-base text-stone-50">
-            <span>{firstRoute}</span>
-            <span className="mx-5">/</span>
-            <span>{secondRoute}</span>
+            <span>{routeName}</span>
           </p>
           <div className="mt-1">
             <span className="text-lg mr-2">{userName}</span>님

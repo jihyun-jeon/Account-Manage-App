@@ -15,22 +15,22 @@ export const ModifyUserName = ({ text, record }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex mr-[1rem]">
-      <Link to={{ pathname: `/users/${record.id}` }}>
-        <input
-          type="text"
-          value={nameValue}
-          ref={accountInputEL}
-          disabled={isDisable}
-          onChange={e => setNameValue(e.target.value)}
-          className={` mr-2 ${isDisable ? 'bg-inherit' : 'bg-lime-200'}`}
-        />
-      </Link>
-      <div className="w-10">
-        {isDisable ? (
+    <div className="flex mr-[1rem] w-44 ">
+      {isDisable ? (
+        <>
+          <Link to={{ pathname: `/users/${record.id}` }}>
+            <input
+              type="text"
+              value={nameValue}
+              ref={accountInputEL}
+              disabled={isDisable}
+              onChange={e => setNameValue(e.target.value)}
+              className="w-2/3 mr-2"
+            />
+          </Link>
           <button
             type="button"
-            className="pr-5"
+            className="w-1/4 px-3 mr-3 "
             onClick={() => {
               setIsDisable(false);
               accountInputEL.current.focus();
@@ -38,11 +38,21 @@ export const ModifyUserName = ({ text, record }) => {
           >
             <EditOutlined className="text-rose-400" />
           </button>
-        ) : (
-          <>
+        </>
+      ) : (
+        <>
+          <input
+            type="text"
+            value={nameValue}
+            ref={accountInputEL}
+            disabled={isDisable}
+            onChange={e => setNameValue(e.target.value)}
+            className="w-2/3  bg-lime-200"
+          />
+          <div className="w-1/4  ">
             <button
               type="button"
-              className="mr-3"
+              className="mx-2"
               onClick={() => {
                 setIsDisable(true);
                 setNameValue(maskingName);
@@ -59,9 +69,9 @@ export const ModifyUserName = ({ text, record }) => {
             >
               <CheckCircleOutlined className="text-green-600" />
             </button>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

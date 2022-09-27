@@ -8,6 +8,7 @@ import ModalLayout from '../../components/ModalLayout';
 import 'antd/dist/antd.css';
 import { Table, Pagination } from 'antd';
 import { ModifyUserName, DeleteButton } from './MakeTableCell';
+import { setNowRoute } from '../../store/nowRouteSlice';
 
 const UserList = () => {
   const [current, setCurrent] = useState(1);
@@ -43,7 +44,12 @@ const UserList = () => {
     });
 
     dispatch(getUsersRequest());
-  }, [current, dispatch, navigate, users]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, dispatch, navigate]);
+
+  useEffect(() => {
+    dispatch(setNowRoute('사용자 리스트'));
+  }, []);
 
   return (
     <div>

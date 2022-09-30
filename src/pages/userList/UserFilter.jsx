@@ -7,12 +7,14 @@ import MakeSelectBox from '../../components/MakeSelectBox';
 import MakeInput from '../../components/MakeInput';
 
 const UserFilter = ({ COUNT_PER_PAGE }) => {
+  const queryParams = new URLSearchParams(window.location.search);
+
   const [putData, setPutData] = useState({
     _page: 1,
     _limit: COUNT_PER_PAGE,
-    is_staff: '',
-    is_active: '',
-    q: '',
+    is_staff: queryParams.get('is_staff') ?? '',
+    is_active: queryParams.get('is_active') ?? '',
+    q: queryParams.get('q') ?? '',
   });
 
   const dispatch = useDispatch();
@@ -65,7 +67,7 @@ const UserFilter = ({ COUNT_PER_PAGE }) => {
               search: `${createSearchParams(putData)}`,
             });
 
-            dispatch(getUsersRequest());
+            dispatch(getUsersRequest()); // api
           }}
         >
           검색

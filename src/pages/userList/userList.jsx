@@ -11,7 +11,8 @@ import { ModifyUserName, DeleteButton } from './MakeTableCell';
 import { setNowRoute } from '../../store/nowRouteSlice';
 
 const UserList = () => {
-  const [current, setCurrent] = useState(1);
+  const queryParams = new URLSearchParams(window.location.search);
+  const [current, setCurrent] = useState(queryParams.get('_page') ?? 1);
 
   const onPageChange = pageNum => {
     setCurrent(pageNum);
@@ -25,8 +26,8 @@ const UserList = () => {
     const queryParams = new URLSearchParams(window.location.search);
     let pageNationData = {};
 
-    Object.entries(usersFilterDataForm).forEach(_ => {
-      const key = users[0];
+    Object.entries(usersFilterDataForm).forEach(el => {
+      const key = el[0];
       const value = queryParams.get(key);
 
       if (value !== '' && value !== null) {
@@ -43,7 +44,7 @@ const UserList = () => {
       })}`,
     });
 
-    dispatch(getUsersRequest());
+    dispatch(getUsersRequest()); // api
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, dispatch, navigate]);
 

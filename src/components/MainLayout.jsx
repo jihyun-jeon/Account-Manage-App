@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
@@ -10,6 +10,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const HeaderLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const { userName } = useSelector(state => state.userName);
   const { routeName } = useSelector(state => state.nowRoute);
@@ -30,7 +31,35 @@ const HeaderLayout = ({ children }) => {
           </li>
 
           {SIDER.map(data => {
-            return (
+            return data.id === 9999 ? (
+              <li
+                className={`ant-menu-item pl-6 bg-[${
+                  pathname.slice(1) === data.url ? '#198fff' : ''
+                }]`}
+                style={{
+                  marginTop: '20px',
+                }}
+              >
+                {data.icon}
+                <button
+                  type="button"
+                  className="ant-menu-title-content"
+                  onClick={() => {
+                    const isLogout = window.confirm('로그아웃 하시겠습니까?');
+
+                    if (isLogout) {
+                      alert('로그아웃 되었습니다');
+                      localStorage.removeItem('accessToken');
+                      navigate('/');
+                    } else {
+                      return;
+                    }
+                  }}
+                >
+                  {data.name}
+                </button>
+              </li>
+            ) : (
               <Link key={data.id} to={`${data.url}?`}>
                 <li
                   className={`ant-menu-item pl-6 bg-[${
@@ -41,16 +70,7 @@ const HeaderLayout = ({ children }) => {
                   }}
                 >
                   {data.icon}
-                  <button
-                    type="button"
-                    className="ant-menu-title-content"
-                    onClick={() => {
-                      if (data.id === 9999) {
-                        alert('로그아웃 되었습니다');
-                        localStorage.removeItem('accessToken');
-                      }
-                    }}
-                  >
+                  <button type="button" className="ant-menu-title-content">
                     {data.name}
                   </button>
                 </li>
@@ -82,3 +102,37 @@ const HeaderLayout = ({ children }) => {
 };
 
 export default HeaderLayout;
+
+/*
+                  <Link key={data.id} to={`${data.url}?`}>
+                <li
+                  className={`ant-menu-item pl-6 bg-[${
+                    pathname.slice(1) === data.url ? '#198fff' : ''
+                  }]`}
+                  style={{
+                    marginTop: '20px',
+                  }}
+                >
+                  {data.icon}
+                  <button
+                    type="button"
+                    className="ant-menu-title-content"
+                    onClick={() => {
+                      if (data.id === 9999) {
+                        const isLogout = window.confirm('로그아웃 하시겠습니까?');
+
+                        if (isLogout) {
+                          alert('로그아웃 되었습니다');
+                          localStorage.removeItem('accessToken');
+                          navigate('/'); //[TODO] ???
+                        } else {
+                          alert('로그아웃 취소');
+                        }
+                      }
+                    }}
+                  >
+                    {data.name}
+                  </button>
+                </li>
+              </Link>
+              */

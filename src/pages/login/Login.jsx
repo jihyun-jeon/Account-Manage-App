@@ -9,20 +9,20 @@ const Login = () => {
   const navigate = useNavigate();
 
   // <회원가입>
-  // useEffect(() => {
-  //   fetch('http://localhost:4000/users/signup', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       email: 'admin@admin.com',
-  //       password: 'admin123!',
-  //     }),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
-  // }, []);
+  useEffect(() => {
+    fetch('http://localhost:4000/users/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'admin@admin.com',
+        password: 'admin123!',
+      }),
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
+  }, []);
 
   const {
     register,

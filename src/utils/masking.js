@@ -14,6 +14,7 @@ export const userNameMasking = function (text) {
     return text.replace(pattern, '*');
   }
 };
+
 export const accountMasking = function (accountNumber, brokerId) {
   const FORMAT = BROKER_FORMAT[brokerId]; // 계좌 형식
   const maskedAccountNum = '**' + accountNumber.slice(2, accountNumber.length - 2) + '**'; // 마킹처리
@@ -23,6 +24,24 @@ export const accountMasking = function (accountNumber, brokerId) {
   [...FORMAT].forEach(el => {
     if (el === '0') {
       result += maskedAccountNum[idx];
+      idx += 1;
+    } else {
+      result += el;
+    }
+  });
+
+  return result;
+};
+
+export const accountUnmasking = function (accountNumber, brokerId) {
+  const FORMAT = BROKER_FORMAT[brokerId]; // 계좌 형식
+
+  let result = '';
+  let idx = 0;
+
+  [...FORMAT].forEach(el => {
+    if (el === '0') {
+      result += accountNumber[idx];
       idx += 1;
     } else {
       result += el;

@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 import { Table, Pagination } from 'antd';
 import { setNowRoute } from '../../store/nowRouteSlice';
 import { accountMasking } from '../../utils/masking';
+import makeReturnRate from '../../utils/MakeReturnRate';
 
 const AccountList = () => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -83,9 +84,7 @@ const makeTableData = DATA => {
   const tableData = [];
 
   for (let i = 0; i < DATA.length; i += 1) {
-    const rate = (((+DATA[i].assets - +DATA[i].payments) / +DATA[i].payments) * 100)
-      .toString()
-      .slice(0, 5);
+    const rate = makeReturnRate(DATA[i]);
 
     const formedAccountNum = accountMasking(DATA[i].number, [DATA[i].broker_id]);
 

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { oneUsersRequest } from '../../api/axios';
 import { BROKERS, ACCOUNT_STATUS } from '../../const';
 import { setNowRoute } from '../../store/nowRouteSlice';
+import { accountMasking } from '../../utils/masking';
 
 const UserDetail = () => {
   const { id } = useParams();
@@ -127,9 +128,10 @@ const UserDetail = () => {
               {userData.accounts.map(accountData => (
                 <tr className="text-center bg-slate-50" key={accountData.id}>
                   <th> {BROKERS[accountData.broker_id]}</th>
-                  <td> {accountData.number}</td>
-                  <td>{accountData.assets}</td>
-                  <td> {accountData.payments}</td>
+                  {/* <td> {accountData.number}</td> */}
+                  <td> {accountMasking(accountData.number, accountData.broker_id)}</td>
+                  <td>{Math.floor(accountData.assets).toLocaleString()}</td>
+                  <td> {Math.floor(accountData.payments).toLocaleString()}</td>
                   <td> {ACCOUNT_STATUS[accountData.status]} </td>
                 </tr>
               ))}

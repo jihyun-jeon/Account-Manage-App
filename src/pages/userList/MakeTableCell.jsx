@@ -7,9 +7,9 @@ import { EditOutlined, CloseCircleOutlined, CheckCircleOutlined } from '@ant-des
 import 'antd/dist/antd.css';
 
 export const ModifyUserName = ({ text, record }) => {
-  const maskingName = userNameMasking(text);
   let [isDisable, setIsDisable] = useState(true);
-  const [nameValue, setNameValue] = useState(maskingName);
+  const [nameValue, setNameValue] = useState(text);
+  const maskingName = userNameMasking(text);
 
   const accountInputEL = useRef();
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const ModifyUserName = ({ text, record }) => {
           <Link to={{ pathname: `/users/${record.id}` }}>
             <input
               type="text"
-              value={nameValue}
+              value={maskingName}
               ref={accountInputEL}
               disabled={isDisable}
               onChange={e => setNameValue(e.target.value)}
@@ -55,7 +55,7 @@ export const ModifyUserName = ({ text, record }) => {
               className="mx-2"
               onClick={() => {
                 setIsDisable(true);
-                setNameValue(maskingName);
+                setNameValue(text);
               }}
             >
               <CloseCircleOutlined className="text-gray-500" />
@@ -75,6 +75,7 @@ export const ModifyUserName = ({ text, record }) => {
     </div>
   );
 };
+
 export const DeleteButton = ({ id }) => {
   const dispatch = useDispatch();
 

@@ -44,6 +44,10 @@ export const accountsRequest = pageNationData => {
   return instance.get(`/accounts?_expand=user&_start=1&_limit=10${pageNationData}`);
 };
 
+export const oneAccountRequest = uuid => {
+  return instance.get(`/accounts?uuid=${uuid}&_expand=user`);
+};
+
 export const usersRequest = pageNationData => {
   return instance.get(`/users?_embed=accounts&_start=1&_limit=10${pageNationData}`);
 };

@@ -69,9 +69,9 @@ export const usersSlice = createSlice({
     // 여기서의 state는 이 슬라이스 내부의 값만 받아옴 (이 slice의 initial값!)
     builder.addCase(patchNameRequest.fulfilled, (state, action) => {
       const userIndex = state.users.findIndex(({ id }) => id === action.payload.id);
-
+      console.log(state.users[userIndex].name, action.payload.name);
       if (!userIndex) {
-        return;
+        return state;
       }
 
       state.users[userIndex].name = action.payload.name;

@@ -25,7 +25,7 @@ const AccountFilter = ({ COUNT_PER_PAGE }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-flow-col justify-items-center place-items-center h-24 mb-5 px-10  border-zinc-900 border-2">
+    <div className="grid grid-flow-col justify-items-center place-items-center h-24 mb-5 px-10  border-zinc-900 border-2 rounded-md">
       <MakeSelectBox
         list={BrokerArr}
         value={putData.broker_id}

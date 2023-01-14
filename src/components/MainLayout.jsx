@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import { SIDER } from '../const';
+import { auth } from '..//firebase';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -39,6 +40,7 @@ const HeaderLayout = ({ children }) => {
                 style={{
                   marginTop: '20px',
                 }}
+                key={data.id}
               >
                 {data.icon}
                 <button
@@ -48,9 +50,7 @@ const HeaderLayout = ({ children }) => {
                     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
                     if (isLogout) {
-                      alert('로그아웃 되었습니다');
-                      localStorage.removeItem('accessToken');
-                      navigate('/');
+                      auth.signOut();
                     } else {
                       return;
                     }

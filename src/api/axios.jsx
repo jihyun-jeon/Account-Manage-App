@@ -36,32 +36,31 @@ instance.interceptors.response.use(
 
 // [TODO] < CRUD - 파일분리 예정 >
 export const loginRequest = userData => {
-  // 3
-  return instance.post('/login', userData);
+  return instance.post('/api/login', userData);
 };
 
 export const accountsRequest = pageNationData => {
-  return instance.get(`/accounts?_expand=user&_start=1&_limit=10${pageNationData}`);
+  return instance.get(`/api/accounts?_expand=user&_start=1&_limit=10${pageNationData}`);
 };
 
 export const oneAccountRequest = uuid => {
-  return instance.get(`/accounts?uuid=${uuid}&_expand=user`);
+  return instance.get(`/api/accounts?uuid=${uuid}&_expand=user`);
 };
 
 export const usersRequest = pageNationData => {
-  return instance.get(`/users?_embed=accounts&_start=1&_limit=10${pageNationData}`);
+  return instance.get(`/api/users?_embed=accounts&_start=1&_limit=10${pageNationData}`);
 };
 
 export const oneUsersRequest = userId => {
-  return instance.get(`/users/${userId}?_embed=accounts`);
+  return instance.get(`/api/users/${userId}?_embed=accounts`);
 };
 
 export const nameModifyRequest = ({ userId, modifiedName }) => {
-  return instance.patch(`/users/${userId}`, {
+  return instance.patch(`/api/users/${userId}`, {
     name: modifiedName,
   });
 };
 
 export const userDeleteRequest = userId => {
-  return instance.delete(`/users/${userId}`);
+  return instance.delete(`/api/users/${userId}`);
 };

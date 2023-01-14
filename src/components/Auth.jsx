@@ -1,12 +1,11 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { auth, firebase } from '../firebase';
 
 const Auth = ({ children }) => {
-  const token = localStorage.getItem('accessToken');
-
-  if (!token) {
-    alert('로그인 정보가 없습니다');
-    return <Navigate to="/" replace={true} />;
+  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+  if (!auth.currentUser) {
+    console.log('NOT LOGGED IN');
+    return <Navigate to="/" />;
   }
 
   return children;

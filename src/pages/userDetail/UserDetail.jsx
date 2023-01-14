@@ -29,7 +29,7 @@ const UserDetail = () => {
     // [TODO] - 하드코딩 한 부분 map으로 리팩토링
     <div>
       {userData.id && (
-        <div className="ml-10 mt-10">
+        <div className="mt-10   pl-20">
           <h1 className="mb-10 mt-[-5px] text-2xl font-semibold text-gray-400">
             General Information
           </h1>
@@ -38,7 +38,7 @@ const UserDetail = () => {
               <img src={userData.photo} alt="userImg" className="rounded-[50%]" />
             </div>
             <div>
-              <ul className="grid w-full grid-cols-6 pb-12 gap-10">
+              <ul className="grid w-full grid-cols-6 pb-12 gap-20">
                 <li>
                   <p className="font-extrabold">name</p>
                   <p>{userData.name}</p>
@@ -67,7 +67,7 @@ const UserDetail = () => {
                 </li>
               </ul>
 
-              <ul className="grid w-full grid-cols-4 pb-12 gap-10">
+              <ul className="grid w-full grid-cols-4 pb-12 gap-20">
                 <li>
                   <p className="font-extrabold">address</p>
                   <p>
@@ -88,7 +88,7 @@ const UserDetail = () => {
                 </li>
               </ul>
 
-              <ul className="grid w-full grid-cols-4 pb-12 gap-10">
+              <ul className="grid w-full grid-cols-4 pb-12 gap-20">
                 <li>
                   <p className="font-extrabold">allow marketing</p>
                   <p>{userData.setting.allow_marketing_push ? '동의' : '거부'}</p>

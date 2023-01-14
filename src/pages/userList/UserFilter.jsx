@@ -21,7 +21,7 @@ const UserFilter = ({ COUNT_PER_PAGE }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-flow-col justify-items-center place-items-center h-24 mb-2 px-10  border-zinc-900 border-2">
+    <div className="grid grid-flow-col justify-items-center place-items-center h-24 mb-2 px-10  border-zinc-900 border-2 rounded-md">
       <MakeSelectBox
         list={ActiveArr}
         value={putData.is_active}
